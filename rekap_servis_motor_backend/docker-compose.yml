@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: motocare_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db_motocare
+      MYSQL_USER: user_motocare
+      MYSQL_PASSWORD: pass_motocare
+    ports:
+      - "3308:3306"
+    volumes:
+      - motocare_db_data:/var/lib/mysql
+    networks:
+      - motocare_net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: motocare_phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
+    networks:
+      - motocare_net
+
+  backend-api:
+    build: ./backend
+    container_name: motocare_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: db_motocare
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - motocare_net
+
+networks:
+  motocare_net:
+    driver: bridge
+
+volumes:
+  motocare_db_data:
