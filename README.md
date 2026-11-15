@@ -43,5 +43,5 @@ Semua layanan backend sudah dibungkus dalam Docker sehingga tidak perlu instalas
 
 ### 1. Clone Repository
 ```bash
-git clone [https://github.com/USERNAME_KAMU/NAMA_REPO_KAMU.git](https://github.com/USERNAME_KAMU/NAMA_REPO_KAMU.git)
-cd NAMA_REPO_KAMU
+git clone [https://github.com/Fikall21/rekap_servis_motor.git](https://github.com/Fikall21/rekap_servis_motor.git)
+cd rekap_servis_motor
